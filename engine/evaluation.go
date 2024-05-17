@@ -114,7 +114,6 @@ func eval(pos *chess.Position) float64 {
 	var materialVal float64
 	var positionalVal float64
 	var mobilityVal float64
-	pos := game.Position()
 	centerControlVal := evaluateCenterControl(pos)
 	for square, piece := range pos.Board().SquareMap() {
 		if piece.Color() == chess.White {

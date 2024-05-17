@@ -7,7 +7,7 @@ import (
 	"github.com/notnil/chess"
 )
 
-func GenMoveIterative(seconds int, game *chess.Game) *chess.Move {
+func GenMoveIterative(seconds int, pos *chess.Position) *chess.Move {
 	defer timer("genMoveIterative")()
 	done := make(chan bool)
 	go func() {
@@ -23,14 +23,14 @@ func GenMoveIterative(seconds int, game *chess.Game) *chess.Move {
 			return move
 		default:
 			depth++
-			move = GenMove(depth, game)
+			move = GenMove(depth, pos)
 		}
 	}
 }
 
-func GenMove(depth int, game chess.Game) *chess.Move {
+func GenMove(depth int, pos *chess.Position) *chess.Move {
 	defer timer("genMove")()
-	move := search(depth, game)
+	move := search(depth, pos)
 	return move
 }
 

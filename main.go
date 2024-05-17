@@ -17,7 +17,7 @@ func run() {
 	defer timer("main method")()
 	game := chess.NewGame()
 	for game.Outcome() == chess.NoOutcome {
-		move := engine.GenMove(1, *game)
+		move := engine.GenMove(1, game.Position())
 		game.Move(move)
 		fmt.Println(game.Position().Board().Draw(), move)
 	}
