@@ -12,7 +12,7 @@ func search(depth int, pos *chess.Position) *chess.Move {
 	moves := pos.ValidMoves()
 	for _, move := range moves {
 		newPos := pos.Update(move)
-		score := -negamax(newPos, 5, -math.MaxFloat64, math.MaxFloat64, false)
+		score := -negamax(newPos, depth, -math.MaxFloat64, math.MaxFloat64, false)
 		if score > bestScore {
 			bestScore = score
 			bestMove = move
