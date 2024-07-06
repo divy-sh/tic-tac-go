@@ -12,7 +12,7 @@ func search(depth int, pos *chess.Position) *chess.Move {
 	moves := pos.ValidMoves()
 	for _, move := range moves {
 		newPos := pos.Update(move)
-		score := -negamax(newPos, depth, -math.MaxFloat64, math.MaxFloat64, false)
+		score := -negamax(newPos, depth, -math.MaxFloat64, math.MaxFloat64)
 		if score > bestScore {
 			bestScore = score
 			bestMove = move
@@ -21,7 +21,7 @@ func search(depth int, pos *chess.Position) *chess.Move {
 	return bestMove
 }
 
-func negamax(pos *chess.Position, depth int, alpha, beta float64, isMaximizingPlayer bool) float64 {
+func negamax(pos *chess.Position, depth int, alpha, beta float64) float64 {
 	if depth == 0 {
 		return eval(pos)
 	}
@@ -30,7 +30,7 @@ func negamax(pos *chess.Position, depth int, alpha, beta float64, isMaximizingPl
 	// Iterate over all moves
 	for _, move := range moves {
 		newPos := pos.Update(move)
-		score := -negamax(newPos, depth-1, -beta, -alpha, !isMaximizingPlayer)
+		score := -negamax(newPos, depth-1, -beta, -alpha)
 		// Update the best score and alpha value
 		bestScore = max(bestScore, score)
 		alpha = max(alpha, score)
