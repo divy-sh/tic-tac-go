@@ -1,4 +1,4 @@
-# Tic Tac Toe in Go
+# Tic Tac Goe
 
 A simple implementation of Tic Tac Toe using the Go programming language. This repository includes a basic game engine that allows for a game against and AI.
 
