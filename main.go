@@ -1,11 +1,11 @@
 package main
 
 import (
-	"tic-tac-toe/game"
-
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+
+	"github.com/divy-sh/tic-tac-goe/game"
 )
 
 var (
