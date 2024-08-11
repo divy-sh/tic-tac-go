@@ -3,7 +3,7 @@ package main
 import (
 	"math"
 
-	"github.com/divy-sh/tic-tac-goe/game"
+	"github.com/divy-sh/tic-tac-go/game"
 )
 
 func Eval(game game.Game) *game.Move {

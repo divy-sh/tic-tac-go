@@ -1,4 +1,4 @@
-module github.com/divy-sh/tic-tac-goe
+module github.com/divy-sh/tic-tac-go
 
 go 1.21.5
 

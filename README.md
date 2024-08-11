@@ -1,4 +1,4 @@
-# Tic Tac Goe
+# Tic Tac Go
 
 A simple implementation of Tic Tac Toe using the Go programming language. This repository includes a basic game engine that allows for a game against an AI.
 
@@ -26,4 +26,4 @@ A simple implementation of Tic Tac Toe using the Go programming language. This r
 
 Run the executable to start the game:
 ```bash
-./tic-tac-goe
+./tic-tac-go

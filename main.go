@@ -5,13 +5,14 @@ import (
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
 
-	"github.com/divy-sh/tic-tac-goe/game"
+	"github.com/divy-sh/tic-tac-go/game"
 )
 
 var (
-	board      game.Game
-	buttons    [][]*widget.Button
-	statusText *widget.Label
+	board         game.Game
+	buttons       [][]*widget.Button
+	statusText    *widget.Label
+	restartButton *widget.Button
 )
 
 func main() {
@@ -34,11 +35,24 @@ func main() {
 	}
 
 	statusText = widget.NewLabel("Player X's turn")
-	content := container.NewVBox(grid, statusText)
+	restartButton = widget.NewButton("Restart", func() {
+		restartGame()
+	})
+	content := container.NewVBox(grid, statusText, restartButton)
 
 	w.SetFixedSize(true)
 	w.SetContent(content)
 	w.ShowAndRun()
+}
+
+func restartGame() {
+	board = game.NewGame(3)
+	for i := range buttons {
+		for j := range buttons[i] {
+			buttons[i][j].SetText(" ")
+			buttons[i][j].Enable()
+		}
+	}
 }
 
 func buttonClicked(x, y int) {
@@ -98,39 +112,3 @@ func updateUI() {
 		statusText.SetText("Player O's turn")
 	}
 }
-
-// package main
-
-// import (
-// 	"fmt"
-// 	"tic-tac-toe/game"
-// )
-
-// func main() {
-// 	board := game.NewGame(3)
-// 	for !board.IsGameOver() {
-// 		fmt.Println(board.PrintBoard())
-// 		var x int
-// 		fmt.Printf("move: ")
-// 		fmt.Scanf("%d", &x)
-// 		if 0 < x && x < 10 {
-// 			newBoard, err := board.Move((x-1)/3, (x-1)%3)
-// 			if err != nil {
-// 				fmt.Println("invalid input")
-// 				continue
-// 			} else {
-// 				board = newBoard
-// 			}
-// 		} else {
-// 			fmt.Println("invalid input, try again")
-// 			continue
-// 		}
-// 		if board.IsGameOver() {
-// 			break
-// 		}
-// 		move := Eval(board)
-// 		board, _ = board.PushMove(*move)
-// 	}
-// 	fmt.Println(board.PrintBoard())
-// 	fmt.Println(board.PrintGameStatus())
-// }
