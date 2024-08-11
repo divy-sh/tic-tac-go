@@ -11,11 +11,11 @@ A simple implementation of Tic Tac Toe using the Go programming language. This r
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/divy-sh/tic-tac-goe.git
+   git clone https://github.com/divy-sh/tic-tac-go.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd tic-tac-goe
+   cd tic-tac-go
    ```
 3. Build the project:
    ```bash
@@ -26,8 +26,4 @@ A simple implementation of Tic Tac Toe using the Go programming language. This r
 
 Run the executable to start the game:
 ```bash
-# cli
 ./tic-tac-goe
-# gui
-./tic-tac-goe -ui
-```
