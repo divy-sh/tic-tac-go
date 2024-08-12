@@ -6,7 +6,7 @@ import (
 	"github.com/divy-sh/tic-tac-go/game"
 )
 
-func Eval(game game.Game) *game.Move {
+func Eval(game game.Game, ply bool) *game.Move {
 	bestScore := -math.MaxFloat32
 	moves := game.LegalMoves()
 	if len(moves) == 0 {
@@ -15,7 +15,7 @@ func Eval(game game.Game) *game.Move {
 	bestMove := moves[0]
 	for _, move := range moves {
 		newBoard, _ := game.PushMove(move)
-		score := -negamax(newBoard, -math.MaxFloat64, math.MaxFloat64, false)
+		score := -negamax(newBoard, -math.MaxFloat64, math.MaxFloat64, ply)
 		if score > bestScore {
 			bestScore = score
 			bestMove = move

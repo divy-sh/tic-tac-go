@@ -63,7 +63,7 @@ func restartGame() {
 		}
 	}
 	if isO {
-		move := Eval(board)
+		move := Eval(board, isO)
 		board, _ = board.PushMove(*move)
 		updateUI()
 	}
@@ -93,7 +93,7 @@ func buttonClicked(x, y int) {
 		return
 	}
 
-	move := Eval(board)
+	move := Eval(board, isO)
 	board, _ = board.PushMove(*move)
 	updateUI()
 
