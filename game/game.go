@@ -71,11 +71,11 @@ func (g *Game) PrintGameStatus() string {
 	if !g.IsGameOver() {
 		return "game not finished"
 	} else if g.Winner == 1 {
-		return "X gon give it to ya"
+		return "X wins!"
 	} else if g.Winner == -1 {
-		return "O-nly I can win"
+		return "O wins!"
 	} else {
-		return "it's a draw... zzz"
+		return "it's a draw."
 	}
 }
 

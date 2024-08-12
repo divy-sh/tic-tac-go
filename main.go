@@ -13,15 +13,16 @@ var (
 	buttons       [][]*widget.Button
 	statusText    *widget.Label
 	restartButton *widget.Button
+	playerToggle  *widget.RadioGroup
+	isO           bool
 )
 
 func main() {
 	a := app.New()
 	w := a.NewWindow("Tic Tac Toe")
-
 	board = game.NewGame(3)
 	buttons = make([][]*widget.Button, 3)
-	grid := container.NewGridWithColumns(3)
+	grid := container.NewAdaptiveGrid(3)
 
 	for i := range buttons {
 		buttons[i] = make([]*widget.Button, 3)
@@ -38,10 +39,18 @@ func main() {
 	restartButton = widget.NewButton("Restart", func() {
 		restartGame()
 	})
-	content := container.NewVBox(grid, statusText, restartButton)
+	playerToggle = widget.NewRadioGroup([]string{"Play as X", "Play as Y"}, func(s string) {
+		if s == "Play as X" {
+			isO = false
+		} else {
+			isO = true
+		}
+		restartGame()
+	})
+	playerToggle.Selected = "Play as X"
+	content := container.NewVSplit(grid, container.NewVBox(statusText, restartButton, playerToggle))
 
-	w.SetFixedSize(true)
-	w.SetContent(content)
+	w.SetContent(container.NewStack(content))
 	w.ShowAndRun()
 }
 
@@ -52,6 +61,11 @@ func restartGame() {
 			buttons[i][j].SetText(" ")
 			buttons[i][j].Enable()
 		}
+	}
+	if isO {
+		move := Eval(board)
+		board, _ = board.PushMove(*move)
+		updateUI()
 	}
 }
 
@@ -94,10 +108,10 @@ func updateUI() {
 		for j := 0; j < 3; j++ {
 			switch board.Board[i][j] {
 			case 1:
-				buttons[i][j].SetText("X")
+				buttons[i][j].SetText("❌")
 				buttons[i][j].Disable()
 			case -1:
-				buttons[i][j].SetText("O")
+				buttons[i][j].SetText("⭕️")
 				buttons[i][j].Disable()
 			case 0:
 				buttons[i][j].SetText(" ")
