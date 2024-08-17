@@ -69,13 +69,17 @@ func (g *Game) PushMove(move Move) (Game, error) {
 
 func (g *Game) PrintGameStatus() string {
 	if !g.IsGameOver() {
-		return "game not finished"
+		if g.Player == 1 {
+			return "Player X's turn"
+		} else {
+			return "Player O's turn"
+		}
 	} else if g.Winner == 1 {
 		return "X wins!"
 	} else if g.Winner == -1 {
 		return "O wins!"
 	} else {
-		return "it's a draw."
+		return "It's a draw."
 	}
 }
 

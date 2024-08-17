@@ -13,6 +13,8 @@ var (
 
 func NewView(c *controller.Controller) {
 	control = c
+	gameStatus = control.GetGameStatus()
+
 	a := app.New()
 	w := a.NewWindow("Tic Tac Toe")
 

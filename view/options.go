@@ -13,7 +13,7 @@ var (
 )
 
 func NewOptions() *fyne.Container {
-	statusText = widget.NewLabel("Player X's turn")
+	statusText = widget.NewLabel(gameStatus.GameStatus)
 	restartButton = widget.NewButton("Restart", func() {
 		gameStatus = control.Restart()
 		updateUI()

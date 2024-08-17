@@ -25,18 +25,12 @@ func (c *Controller) Restart() *GameStatus {
 		move := engine.Eval(c.board, c.isO)
 		c.board, _ = c.board.PushMove(*move)
 	}
-	return &GameStatus{
-		Board:      c.board.Board,
-		GameStatus: c.board.PrintGameStatus(),
-	}
+	return c.GetGameStatus()
 }
 
 func (c *Controller) Move(x, y int) (*GameStatus, error) {
 	if c.board.IsGameOver() {
-		return &GameStatus{
-			Board:      c.board.Board,
-			GameStatus: c.board.PrintGameStatus(),
-		}, nil
+		return c.GetGameStatus(), nil
 	}
 
 	if c.board.Board[x][y] != 0 {
@@ -51,21 +45,22 @@ func (c *Controller) Move(x, y int) (*GameStatus, error) {
 	c.board = newBoard
 
 	if c.board.IsGameOver() {
-		return &GameStatus{
-			Board:      c.board.Board,
-			GameStatus: c.board.PrintGameStatus(),
-		}, nil
+		return c.GetGameStatus(), nil
 	}
 
 	move := engine.Eval(c.board, c.isO)
 	c.board, _ = c.board.PushMove(*move)
-	return &GameStatus{
-		Board:      c.board.Board,
-		GameStatus: c.board.PrintGameStatus(),
-	}, nil
+	return c.GetGameStatus(), nil
 }
 
 func (c *Controller) SwitchPlayer(isO bool) *GameStatus {
 	c.isO = isO
 	return c.Restart()
+}
+
+func (c *Controller) GetGameStatus() *GameStatus {
+	return &GameStatus{
+		Board:      c.board.Board,
+		GameStatus: c.board.PrintGameStatus(),
+	}
 }
