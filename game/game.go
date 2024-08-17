@@ -2,7 +2,6 @@ package game
 
 import (
 	"errors"
-	"fmt"
 )
 
 type Game struct {
@@ -55,7 +54,6 @@ func (g *Game) Move(x, y int) (*Game, error) {
 }
 
 func (g *Game) PushMove(move Move) (*Game, error) {
-	fmt.Println(g)
 	if move.s1 >= g.size || move.s2 >= g.size || g.Board[move.s1][move.s2] != 0 || g.Winner != 0 {
 		return g, errors.New("invalid move")
 	}
@@ -78,7 +76,7 @@ func (g *Game) PrintGameStatus() string {
 	} else if g.Winner == -1 {
 		return "O wins!"
 	} else {
-		return "it's a draw."
+		return "It's a draw."
 	}
 }
 

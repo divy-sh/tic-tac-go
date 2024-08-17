@@ -15,12 +15,17 @@ var (
 func NewOptions() *fyne.Container {
 	statusText = widget.NewLabel("Player X's turn")
 	restartButton = widget.NewButton("Restart", func() {
-		control.Restart()
+		gameStatus = control.Restart()
+		updateUI()
 	})
-	playerToggle = widget.NewRadioGroup([]string{"Play as X", "Play as Y"}, func(s string) {
-
+	playerToggle = widget.NewRadioGroup([]string{"Play as O"}, func(s string) {
+		if s == "Play as O" {
+			gameStatus = control.SwitchPlayer(true)
+		} else {
+			gameStatus = control.SwitchPlayer(false)
+		}
+		updateUI()
 	})
-	playerToggle.Selected = "Play as X"
 	return container.NewVBox(statusText, restartButton, playerToggle)
 }
 

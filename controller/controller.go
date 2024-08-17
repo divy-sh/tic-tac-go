@@ -64,3 +64,8 @@ func (c *Controller) Move(x, y int) (*GameStatus, error) {
 		GameStatus: c.board.PrintGameStatus(),
 	}, nil
 }
+
+func (c *Controller) SwitchPlayer(isO bool) *GameStatus {
+	c.isO = isO
+	return c.Restart()
+}
