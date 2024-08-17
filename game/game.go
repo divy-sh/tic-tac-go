@@ -52,7 +52,7 @@ func (g *Game) Move(x int, y int) (Game, error) {
 }
 
 func (g *Game) PushMove(move Move) (Game, error) {
-	if move.s1 >= g.size || move.s2 >= g.size || g.Board[move.s1][move.s2] != 0 || g.Winner != 0 {
+	if move.s1 >= g.size || move.s2 >= g.size || move.s1 < 0 || move.s2 < 0 || g.Board[move.s1][move.s2] != 0 || g.Winner != 0 {
 		return *g, errors.New("invalid move")
 	}
 	newGame := *g

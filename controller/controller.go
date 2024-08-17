@@ -1,8 +1,6 @@
 package controller
 
 import (
-	"errors"
-
 	"github.com/divy-sh/tic-tac-go/engine"
 	"github.com/divy-sh/tic-tac-go/game"
 )
@@ -31,10 +29,6 @@ func (c *Controller) Restart() *GameStatus {
 func (c *Controller) Move(x, y int) (*GameStatus, error) {
 	if c.board.IsGameOver() {
 		return c.GetGameStatus(), nil
-	}
-
-	if c.board.Board[x][y] != 0 {
-		return nil, errors.New("invalid move")
 	}
 
 	newBoard, err := c.board.Move(x, y)
