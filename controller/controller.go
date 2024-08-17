@@ -9,7 +9,7 @@ import (
 
 type Controller struct {
 	isO   bool
-	board *game.Game
+	board game.Game
 }
 
 func NewController() *Controller {
