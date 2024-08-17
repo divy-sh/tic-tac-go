@@ -1,6 +1,9 @@
 package game
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type Game struct {
 	Board    [][]int
@@ -10,7 +13,7 @@ type Game struct {
 	Winner   int
 }
 
-func NewGame(size int) Game {
+func NewGame(size int) *Game {
 	newBoard := [][]int{}
 	for i := 0; i < size; i++ {
 		newRow := []int{}
@@ -19,7 +22,7 @@ func NewGame(size int) Game {
 		}
 		newBoard = append(newBoard, newRow)
 	}
-	game := Game{
+	game := &Game{
 		size:     size,
 		Board:    newBoard,
 		Player:   1,
@@ -46,21 +49,17 @@ func (g *Game) LegalMoves() []Move {
 	return moves
 }
 
-func (g *Game) Move(x int, y int) (Game, error) {
+func (g *Game) Move(x, y int) (*Game, error) {
 	move := Move{s1: x, s2: y, player: g.Player}
 	return g.PushMove(move)
 }
 
-func (g *Game) PushMove(move Move) (Game, error) {
+func (g *Game) PushMove(move Move) (*Game, error) {
+	fmt.Println(g)
 	if move.s1 >= g.size || move.s2 >= g.size || g.Board[move.s1][move.s2] != 0 || g.Winner != 0 {
-		return *g, errors.New("invalid move")
+		return g, errors.New("invalid move")
 	}
-	newGame := *g
-	newGame.Board = make([][]int, len(g.Board))
-	for i := range g.Board {
-		newGame.Board[i] = make([]int, len(g.Board[i]))
-		copy(newGame.Board[i], g.Board[i])
-	}
+	newGame := g.clone()
 	newGame.Board[move.s1][move.s2] = newGame.Player
 	newGame.moveList = append(newGame.moveList, move)
 	newGame.updateGameStatus()
@@ -69,7 +68,11 @@ func (g *Game) PushMove(move Move) (Game, error) {
 
 func (g *Game) PrintGameStatus() string {
 	if !g.IsGameOver() {
-		return "game not finished"
+		if g.Player == 1 {
+			return "X's turn"
+		} else {
+			return "O's turn"
+		}
 	} else if g.Winner == 1 {
 		return "X wins!"
 	} else if g.Winner == -1 {
@@ -150,4 +153,20 @@ func (g *Game) changePlayer() {
 	} else {
 		g.Player = 1
 	}
+}
+
+func (g *Game) clone() *Game {
+	// copy size
+	newGame := NewGame(g.size)
+	// copy board
+	for row := 0; row < g.size; row++ {
+		copy(newGame.Board[row], g.Board[row])
+	}
+	// copy move list
+	copy(newGame.moveList, g.moveList)
+	// copy current player
+	newGame.Player = g.Player
+	// copy winner
+	newGame.Winner = g.Winner
+	return newGame
 }

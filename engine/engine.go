@@ -1,4 +1,4 @@
-package main
+package engine
 
 import (
 	"math"
@@ -6,7 +6,7 @@ import (
 	"github.com/divy-sh/tic-tac-go/game"
 )
 
-func Eval(game game.Game, ply bool) *game.Move {
+func Eval(game *game.Game, ply bool) *game.Move {
 	bestScore := -math.MaxFloat32
 	moves := game.LegalMoves()
 	if len(moves) == 0 {
@@ -24,7 +24,7 @@ func Eval(game game.Game, ply bool) *game.Move {
 	return &bestMove
 }
 
-func negamax(game game.Game, alpha, beta float64, isMaximizingPlayer bool) float64 {
+func negamax(game *game.Game, alpha, beta float64, isMaximizingPlayer bool) float64 {
 	if game.IsGameOver() {
 		eval := float64(game.GetGameStatus())
 		if isMaximizingPlayer {
