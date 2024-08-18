@@ -102,6 +102,48 @@ func TestIsGameOver(t *testing.T) {
 	}
 }
 
+func TestIsGameOver_GameWonByXDiagonally(t *testing.T) {
+	g := NewGame(3)
+
+	if g.IsGameOver() {
+		t.Fatal("Expected game to not be over initially")
+	}
+
+	g, _ = g.Move(0, 0)
+	g, _ = g.Move(1, 0)
+	g, _ = g.Move(1, 1)
+	g, _ = g.Move(1, 2)
+	g, _ = g.Move(2, 2)
+
+	if !g.IsGameOver() {
+		t.Fatal("Expected game to be over after a winning move")
+	}
+	if g.GetGameStatus() != 1 {
+		t.Errorf("Expected winner to be 1, but got %d", g.GetGameStatus())
+	}
+}
+
+func TestIsGameOver_GameWonByODiagonally(t *testing.T) {
+	g := NewGame(3)
+
+	if g.IsGameOver() {
+		t.Fatal("Expected game to not be over initially")
+	}
+	g, _ = g.Move(2, 1)
+	g, _ = g.Move(0, 0)
+	g, _ = g.Move(1, 0)
+	g, _ = g.Move(1, 1)
+	g, _ = g.Move(1, 2)
+	g, _ = g.Move(2, 2)
+
+	if !g.IsGameOver() {
+		t.Fatal("Expected game to be over after a winning move")
+	}
+	if g.GetGameStatus() != -1 {
+		t.Errorf("Expected winner to be -1, but got %d", g.GetGameStatus())
+	}
+}
+
 func TestIsGameOverForDrawnGame(t *testing.T) {
 	g := NewGame(3)
 
