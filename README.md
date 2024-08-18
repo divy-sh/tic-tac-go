@@ -27,3 +27,11 @@ A simple implementation of Tic Tac Toe using the Go programming language. This r
 Run the executable to start the game:
 ```bash
 ./tic-tac-go
+```
+
+## Tests
+
+To run tests use the following command:
+```bash
+go test ./...
+```
